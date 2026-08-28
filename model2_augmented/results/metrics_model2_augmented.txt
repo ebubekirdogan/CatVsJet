@@ -1,0 +1,8 @@
+Model 2 - Augmented Test Sonuclari
+Accuracy  : 92.99%
+Precision : 94.88%
+Recall    : 90.86%
+F1-Score  : 92.83%
+Confusion Matrix:
+[[564  29]
+ [ 54 537]]

@@ -1,0 +1,8 @@
+Model 1 - Baseline Test Sonuclari
+Accuracy  : 91.72%
+Precision : 89.19%
+Recall    : 94.92%
+F1-Score  : 91.97%
+Confusion Matrix:
+[[525  68]
+ [ 30 561]]

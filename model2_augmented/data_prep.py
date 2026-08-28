@@ -15,11 +15,26 @@ import os
 # rastgele bolmeye (random_split, val_split, seed) gerek kalmadi, dogrudan 3 klasoru okuyoruz.
 def get_dataloaders(data_dir='../dataset', batch_size=32):
     # veri on isleme
-    transform = transforms.Compose([
+    # ============================================
+    # veri artirma (augmentation) - SADECE train icin. model her epoch'ta ayni resmi
+    # hafifce degistirilmis haliyle gorsun diye, ezberlemesi zorlassin diye ekliyoruz.
+    # ============================================
+    train_transform = transforms.Compose([
         transforms.Resize((64,64)), # farklı boyurrutlarda resimleri 64x64 boyutuna getiriyoruz. Tum resimler artik 64x64x3(3 RGB den)
-         transforms.ToTensor(), # resimleri tensor'e çeviriyoruz
+        transforms.RandomHorizontalFlip(), # resmi %50 ihtimalle yatay aynalar (sag-sol ters cevirir)
+        transforms.ColorJitter(brightness=0.3, contrast=0.3), # parlaklik ve kontrasti rastgele +-%30 oynatir (amirin bahsettigi parlaklik artirma)
+        transforms.RandomRotation(15), # resmi rastgele +-15 derece dondurur
+        transforms.ToTensor(), # resimleri tensor'e çeviriyoruz
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)) # resimleri normalize ediyoruz Amac : Resim değerlerini modelin daha rahat işleyebileceği aralığa getirirmektir.
-])
+    ])
+
+    # val ve test icin augmentation YOK, cunku bunlar modelin GERCEK dunyada nasil performans
+    # gosterdigini olcmeli, yapay olarak degistirilmis resimlerle olculmemeli.
+    val_test_transform = transforms.Compose([
+        transforms.Resize((64,64)),
+        transforms.ToTensor(),
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+    ])
 
 # klasor yollari
 
@@ -30,10 +45,10 @@ def get_dataloaders(data_dir='../dataset', batch_size=32):
 
     # Resimleri dataset olarak okuma
     # ImageFolder; verilen klasor icindeki her alt klasoru otomatik olarak sinif olarak algilar. klasor ismine goer etiket verir
-    # Yukarida tanimladigimiz transform islemlerini resimlere uygular
-    train_dataset = datasets.ImageFolder(root=train_dir, transform=transform)
-    val_dataset = datasets.ImageFolder(root=val_dir, transform=transform)
-    test_dataset = datasets.ImageFolder(root=test_dir, transform=transform)
+    # train_dataset augmentation'li transform ile, val/test augmentation'siz transform ile okunuyor
+    train_dataset = datasets.ImageFolder(root=train_dir, transform=train_transform)
+    val_dataset = datasets.ImageFolder(root=val_dir, transform=val_test_transform)
+    test_dataset = datasets.ImageFolder(root=test_dir, transform=val_test_transform)
 
     # data loaer - resimleri batchler halinde (32 li gruplar halinde) modele verme islemi gereceklestirilir.
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True) # 3 boyutlu resimlerden 32 tanesini ust uste koyarak 4 boytlu matris hazirlar.# model ezber yapmasin diye shuffle=True yaptik.resimleri karisik verir
