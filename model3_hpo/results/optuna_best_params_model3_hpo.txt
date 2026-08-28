@@ -1,0 +1,9 @@
+Model 3 - Optuna Best Params
+----------------------------
+best_trial_number: 4
+best_val_acc: 93.50%
+learning_rate: 0.0006286579705663656
+batch_size: 64
+optimizer: adam
+search_epochs_per_trial: 3
+final_training_epochs: 5

@@ -1,0 +1,10 @@
+Model 3 (HPO) Test Metrics
+--------------------------
+Accuracy : 0.9206 (92.06%)
+Precision: 0.9220
+Recall   : 0.9206
+F1 Score : 0.9205
+
+Confusion Matrix:
+[[563  30]
+ [ 64 527]]
