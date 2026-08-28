@@ -7,17 +7,21 @@ def test_model():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Sinav Basliyor! Donanim: {device.type.upper()}\n")
 
-    # get_dataloaders iki deger donduruyordu: train_loader ve test_loader. ancak test dosyasında egitim verisine gerek yok. kullanmayacagiz.
+    # ============================================
+    #  get_dataloaders artik 3 deger donduruyor (train, val, test)
+    # Bu dosyada train ve val'e ihtiyacimiz yok, sadece test_loader lazim.
     # '_' (alt çizgi) Python'da "bu veriyi kullanmayacağım, çöpe at" demektir.
-    _, test_loader = get_dataloaders(batch_size=32)
+    # ============================================
+    _, _, test_loader = get_dataloaders(batch_size=32)
 
     # 2. model olusturma calisinca model.pyde __init__ fonksiyonu calisir ve su katmanlar olusur: conv1, conv2, pool, fc1, fc2.
     model = CatVsJetCNN().to(device) # model nesnesini CUDA'ya (GPU) tasiyoruz. eger GPU yoksa CPU da calisir.
     # torch.load ile kaydedilen modelin ağırlıklarını yükleriz. weights_only=True ile sadece ağırlıkları yükleriz, mimariyi değil.
     # ve okunan agirliklar olusturulan model nesnesine atanir.
-    model.load_state_dict(torch.load('cat_vs_jet_model.pth', weights_only=True))
-    
-    # Modeli test moduna alinir. 
+    # dosya adi artik 'cat_vs_jet_model1_baseline.pth'
+    model.load_state_dict(torch.load('cat_vs_jet_model1_baseline.pth', weights_only=True))
+
+    # Modeli test moduna alinir.
     model.eval()
 
     # 3. istatistik tutacak sayaclar olusturulur.
@@ -36,14 +40,14 @@ def test_model():
             # outputs [0.4,1.7] gibi 2 sayi cikar. bu sayilarin her biri bir sinifin skorunu temsil eder. 0: airplane, 1: cat.
             # En yüksek skora sahip olan sınıfı (0: Uçak veya 1: Kedi) seç
             _, tahminler = torch.max(outputs, 1) #torchmax aslinda iki deger dondurur: en yuksek skor ve onun indexi. vize sadece indexi lazim.
-            
-            # o anki banchte kac resim varsa sayaca ekle. labels.size(0) ile batchteki resim sayisini aliyoruz. labels tensor’ünün 0. boyutunun uzunluğunu verir.
+
+            # o anki banchte kac resim varsa sayaca ekle. labels.size(0) ile batchteki resim sayisini aliyoruz. labels tensor'ünün 0. boyutunun uzunluğunu verir.
             toplam_resim += labels.size(0)
             dogru_bilinen += (tahminler == labels).sum().item() # tahminler ve labels karsilastirilir. dogru tahminler True, yanlis tahminler False olur. sum() ile True sayisi bulunur. item() ile tensor'den sayiya cevrilir.
             #Her 10 pakette bir anlık durumu yazdır
             if (i + 1) % 10 == 0:
                 print(f"Test Ediliyor... Paket [{i+1}/{len(test_loader)}]")
-    # 5. Matematiksel Doğruluk Yüzdesi Hesaplama 
+    # 5. Matematiksel Doğruluk Yüzdesi Hesaplama
     basari_orani = 100.0 * dogru_bilinen / toplam_resim
     print(f"Test Bitti! Modelin Basari Orani: %{basari_orani:.2f}")
 
