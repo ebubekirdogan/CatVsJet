@@ -1,10 +1,8 @@
-Model 3 (HPO) Test Metrics
---------------------------
-Accuracy : 0.9206 (92.06%)
-Precision: 0.9220
-Recall   : 0.9206
-F1 Score : 0.9205
-
+Model 3 - HPO Test Sonuclari
+Accuracy  : 92.91%
+Precision : 93.78%
+Recall    : 91.88%
+F1-Score  : 92.82%
 Confusion Matrix:
-[[563  30]
- [ 64 527]]
+[[557  36]
+ [ 48 543]]

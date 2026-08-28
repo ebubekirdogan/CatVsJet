@@ -18,7 +18,7 @@ def train_model():
     # egitim paketi train_loadera, dogrulama paketi val_loadera, test paketi test_loadera ataniyor.
 
     # Sinifdan model nesnesini olusturuyoruz. bu cagrildigi anda __init__ fonksiyonu calisir ve modelin katmanlari olusturulur. model nesnesi ile artik ileri ve geri yayilim islemleri yapilabilir.
-    model = CatVsJetCNN().to(device) # to device ile model nesnesini CUDA'ya (GPU) tasiyoruz. eger GPU yoksa CPU da calisir.
+    model = CatVsJetCNN().to(device) # to(device) ile model nesnesini CUDA'ya (GPU) tasiyoruz. eger GPU yoksa CPU da calisir.
 
     # Hata fonksiyonu (Loss Function) : modelin sonucu ile gercek sonuc karsilastirir (cross-entropy yontemi ile : 0 mı 1 mi problemlerinde kulanilir.)
     criterion = nn.CrossEntropyLoss()
@@ -29,9 +29,9 @@ def train_model():
     epochs = 5 # tum veri seti toplamda 5 kez okunacak.
 
     # ============================================
-    # YENİ EKLENEN KISIM: gecmisi kaydetmek icin listeler
+    #  gecmisi kaydetmek icin listeler
     # ============================================
-    # Bu listeler her epoch sonunda doldurulacak. Sonrasinda (baska bir dosyada)
+    # Bu listeler her epoch sonunda doldurulacak.
     #***Bu listeleri kullanarak train ve validation icin "loss/accuracy" grafigini cizecegiz.***#
     history = {
         "train_loss": [],
@@ -45,7 +45,7 @@ def train_model():
 
     for epoch in range(epochs): # dis dongu; her epoch icin
         # ============================================
-        # EĞİTİM (TRAIN) AŞAMASI -
+        # Egitim (TRAIN) AŞAMASI -
         # ============================================
         model.train() # model egitim moduna alinir. agirliklar güncellenecek.
         running_loss = 0.0 # hata sayaci. her epoch icin sifirla.
@@ -76,7 +76,7 @@ def train_model():
             # Ekrana bilgi basmak icin hatayi sayacimiza ekle.
             running_loss += loss.item()
 
-            # YENİ: train dogruluğunu da anlik olarak hesapliyoruz
+            # train dogruluğunu da anlik olarak hesapliyoruz
             _, predicted = torch.max(outputs, 1) # en yuksek skora sahip sinifi sec
             train_total += labels.size(0)
             train_correct += (predicted == labels).sum().item()
@@ -132,7 +132,7 @@ def train_model():
               f'Train Loss: {train_loss:.4f} Acc: {train_acc:.2f}% | '
               f'Val Loss: {val_loss:.4f} Acc: {val_acc:.2f}%\n')
 
-    print("Eğitim tamamlandı.")
+    print("Egitim tamamlandi.")
 
     # Modeli kaydetme
     # Modeli kaydetme amacimiz : Eğitim (özellikle büyük veri setlerinde) saatler sürebilir. Ağırlıkları kaydedersek, bir dahaki sefere modeli sıfırdan eğitmek yerine model.load_state_dict(torch.load('cat_vs_jet_model.pth')) diyerek kaldığımız yerden (ya da doğrudan tahmin yapmak için) devam edebiliriz.
@@ -141,7 +141,7 @@ def train_model():
     torch.save(model.state_dict(), 'cat_vs_jet_model1_baseline.pth') # ogrenilmis tum agirliklari dosyaya kaydediyoruz ki her seferinde bastan egitmeyelim.
     print("Model basariyla cat_vs_jet_model1_baseline.pth adiyla kaydedildi.")
 
-    # YENİ: history sozlugunu de kaydediyoruz. Bunu az sonra baska bir dosyada (grafik cizerken) kullanacagiz.
+    # history sozlugunu de kaydediyoruz. Bunu az sonra baska bir dosyada (grafik cizerken) kullanacagiz.
     torch.save(history, 'history_model1_baseline.pth')
     print("Egitim gecmisi (history) basariyla history_model1_baseline.pth adiyla kaydedildi.")
 

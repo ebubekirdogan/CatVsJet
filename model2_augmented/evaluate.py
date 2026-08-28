@@ -1,5 +1,5 @@
 # evaluate.py -> Egitilmis modelin TEST seti uzerindeki performansini olcen ve gorsellestiren dosya.
-# Bu dosya train.py'den SONRA calistirilir (cunku .pth dosyalarina ihtiyac duyar).
+# !Bu dosya train.py'den SONRA calistirilir (cunku .pth dosyalarina ihtiyac duyar).
 
 import torch
 import numpy as np
@@ -16,7 +16,7 @@ def evaluate_model():
     # sadece test_loader lazim, train ve val'i bu dosyada kullanmiyoruz
     _, _, test_loader = get_dataloaders(batch_size=32)
 
-    # bos model olustur, egitilmis agirliklari yukle (test.py ile ayni mantik)
+    # bos model olustur, egitilmis agirliklari yukle 
     model = CatVsJetCNN().to(device)
     model.load_state_dict(torch.load('cat_vs_jet_model2_augmented.pth', weights_only=True))
     model.eval()

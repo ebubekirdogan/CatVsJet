@@ -29,7 +29,7 @@ def train_model():
     epochs = 5 # tum veri seti toplamda 5 kez okunacak.
 
     # ============================================
-    # YENİ EKLENEN KISIM: gecmisi kaydetmek icin listeler
+    #  gecmisi kaydetmek icin listeler
     # ============================================
     # Bu listeler her epoch sonunda doldurulacak. Sonrasinda (baska bir dosyada)
     #***Bu listeleri kullanarak train ve validation icin "loss/accuracy" grafigini cizecegiz.***#
@@ -92,7 +92,7 @@ def train_model():
         train_acc = 100.0 * train_correct / train_total
 
         # ============================================
-        # VALIDATION AŞAMASI
+        # VALIDATION
         # ============================================
         # Bu blok her epoch'un sonunda, egitim bittikten hemen sonra calisir.
         # Amac: model bu epoch sonunda hic gormedigi (val_loader) veride ne kadar basarili, onu olcmek.
@@ -141,7 +141,7 @@ def train_model():
     torch.save(model.state_dict(), 'cat_vs_jet_model2_augmented.pth') # ogrenilmis tum agirliklari dosyaya kaydediyoruz ki her seferinde bastan egitmeyelim.
     print("Model basariyla cat_vs_jet_model2_augmented.pth adiyla kaydedildi.")
 
-    # YENİ: history sozlugunu de kaydediyoruz. Bunu az sonra baska bir dosyada (grafik cizerken) kullanacagiz.
+    # history sozlugunu de kaydediyoruz. Bunu baska bir dosyada (grafik cizerken) kullanacagiz.
     torch.save(history, 'history_model2_augmented.pth')
     print("Egitim gecmisi (history) basariyla history_model2_augmented.pth adiyla kaydedildi.")
 

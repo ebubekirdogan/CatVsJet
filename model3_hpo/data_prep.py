@@ -25,17 +25,17 @@ def get_dataloaders(data_dir='../dataset', batch_size=32):
 
     #isletim sistemine uygun sekilde klasor yollari olusturuyoruz
     train_dir = os.path.join(data_dir, 'train') #Windows;Mac ve Linux ayrimi icin os.path.join kullaniyoruz.(dosya yollarindaki / ve \ farki icin)
-    val_dir = os.path.join(data_dir, 'val') # validation klasoru artik ayri, hazir bir klasor
+    val_dir = os.path.join(data_dir, 'val') 
     test_dir = os.path.join(data_dir, 'test')
 
     # Resimleri dataset olarak okuma
-    # ImageFolder; verilen klasor icindeki her alt klasoru otomatik olarak sinif olarak algilar. klasor ismine goer etiket verir
+    # ImageFolder; verilen klasor icindeki her alt klasoru otomatik olarak sinif olarak algilar. klasor ismine gore etiket verir
     # Yukarida tanimladigimiz transform islemlerini resimlere uygular
     train_dataset = datasets.ImageFolder(root=train_dir, transform=transform)
     val_dataset = datasets.ImageFolder(root=val_dir, transform=transform)
     test_dataset = datasets.ImageFolder(root=test_dir, transform=transform)
 
-    # data loaer - resimleri batchler halinde (32 li gruplar halinde) modele verme islemi gereceklestirilir.
+    # data loader - resimleri batchler halinde (32 li gruplar halinde) modele verme islemi gereceklestirilir.
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True) # 3 boyutlu resimlerden 32 tanesini ust uste koyarak 4 boytlu matris hazirlar.# model ezber yapmasin diye shuffle=True yaptik.resimleri karisik verir
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False) # validation'i karistirmiyoruz, sadece olcum yapiyoruz, ogrenme yok
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False) # test verilerini karistirmiyoruz. ogrenme islemi yapilmayacak

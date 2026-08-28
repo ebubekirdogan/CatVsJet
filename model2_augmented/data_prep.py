@@ -20,15 +20,15 @@ def get_dataloaders(data_dir='../dataset', batch_size=32):
     # hafifce degistirilmis haliyle gorsun diye, ezberlemesi zorlassin diye ekliyoruz.
     # ============================================
     train_transform = transforms.Compose([
-        transforms.Resize((64,64)), # farklı boyurrutlarda resimleri 64x64 boyutuna getiriyoruz. Tum resimler artik 64x64x3(3 RGB den)
+        transforms.Resize((64,64)), # farklı boyutlarda resimleri 64x64 boyutuna getiriyoruz. Tum resimler artik 64x64x3(3 RGB den)
         transforms.RandomHorizontalFlip(), # resmi %50 ihtimalle yatay aynalar (sag-sol ters cevirir)
-        transforms.ColorJitter(brightness=0.3, contrast=0.3), # parlaklik ve kontrasti rastgele +-%30 oynatir (amirin bahsettigi parlaklik artirma)
+        transforms.ColorJitter(brightness=0.3, contrast=0.3), # parlaklik ve kontrasti rastgele +-%30 oynatir 
         transforms.RandomRotation(15), # resmi rastgele +-15 derece dondurur
         transforms.ToTensor(), # resimleri tensor'e çeviriyoruz
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)) # resimleri normalize ediyoruz Amac : Resim değerlerini modelin daha rahat işleyebileceği aralığa getirirmektir.
     ])
 
-    # val ve test icin augmentation YOK, cunku bunlar modelin GERCEK dunyada nasil performans
+    # !val ve test icin augmentation YOK, cunku bunlar modelin GERCEK dunyada nasil performans
     # gosterdigini olcmeli, yapay olarak degistirilmis resimlerle olculmemeli.
     val_test_transform = transforms.Compose([
         transforms.Resize((64,64)),
@@ -40,7 +40,7 @@ def get_dataloaders(data_dir='../dataset', batch_size=32):
 
     #isletim sistemine uygun sekilde klasor yollari olusturuyoruz
     train_dir = os.path.join(data_dir, 'train') #Windows;Mac ve Linux ayrimi icin os.path.join kullaniyoruz.(dosya yollarindaki / ve \ farki icin)
-    val_dir = os.path.join(data_dir, 'val') # validation klasoru artik ayri, hazir bir klasor
+    val_dir = os.path.join(data_dir, 'val')
     test_dir = os.path.join(data_dir, 'test')
 
     # Resimleri dataset olarak okuma

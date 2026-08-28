@@ -8,9 +8,9 @@ def test_model():
     print(f"Sinav Basliyor! Donanim: {device.type.upper()}\n")
 
     # ============================================
-    #  get_dataloaders artik 3 deger donduruyor (train, val, test)
+    #  get_dataloaders 3 deger donduruyor (train, val, test)
     # Bu dosyada train ve val'e ihtiyacimiz yok, sadece test_loader lazim.
-    # '_' (alt çizgi) Python'da "bu veriyi kullanmayacağım, çöpe at" demektir.
+    # 
     # ============================================
     _, _, test_loader = get_dataloaders(batch_size=32)
 
@@ -18,7 +18,6 @@ def test_model():
     model = CatVsJetCNN().to(device) # model nesnesini CUDA'ya (GPU) tasiyoruz. eger GPU yoksa CPU da calisir.
     # torch.load ile kaydedilen modelin ağırlıklarını yükleriz. weights_only=True ile sadece ağırlıkları yükleriz, mimariyi değil.
     # ve okunan agirliklar olusturulan model nesnesine atanir.
-    # dosya adi artik 'cat_vs_jet_model1_baseline.pth'
     model.load_state_dict(torch.load('cat_vs_jet_model1_baseline.pth', weights_only=True))
 
     # Modeli test moduna alinir.

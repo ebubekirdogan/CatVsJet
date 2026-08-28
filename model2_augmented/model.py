@@ -9,7 +9,7 @@ import torch.nn.functional as F # fonksiyonların bulundugu kutuphane (ReLU bura
 class CatVsJetCNN(nn.Module): #pytorch'da model olusturmak icin nn.Module(sinir agi modelleri temel sinifi) sinifindan miras aliyoruz
     def __init__(self):
         super(CatVsJetCNN, self).__init__() #Üst sınıf olan nn.Module sınıfının başlangıç işlemlerini çalıştırır.
-        # Buraya kadar her PyTorch modelinde ortak olan kodlar var.
+        
 
         # 1. evrisim katmani
         #Giris resmi RGB oldugundan 3 kanalli. resimden 16 tane filtre ile evrisim yapacagiz. kernel boyutu 3x3 olacak. padding=1 ile resim boyutunu koruyoruz.

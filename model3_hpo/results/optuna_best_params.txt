@@ -1,0 +1,2 @@
+En iyi val accuracy: 92.74%
+En iyi parametreler: {'learning_rate': 0.00037555364094979084, 'batch_size': 16}

@@ -1,8 +1,0 @@
-Model 3 - Grid Search Best Params
-----------------------------------
-learning_rate: 0.0005
-batch_size: 32
-optimizer: adam
-epochs(search): 3
-best_val_acc: 93.76%
-best_val_loss: 0.1639
