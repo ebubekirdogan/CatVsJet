@@ -5,7 +5,7 @@ from model import CatVsJetCNN
 def test_model():
     # 1. DONANIM SEÇİMİ CUDA (NVIDIA) var mı diye soruyoruz, varsa gücü oraya aktarıyoruz. yoksa CPU da calisir.
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Sinav Başliyor! Donanim: {device.type.upper()}\n")
+    print(f"Sinav Basliyor! Donanim: {device.type.upper()}\n")
 
     # get_dataloaders iki deger donduruyordu: train_loader ve test_loader. ancak test dosyasında egitim verisine gerek yok. kullanmayacagiz.
     # '_' (alt çizgi) Python'da "bu veriyi kullanmayacağım, çöpe at" demektir.

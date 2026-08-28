@@ -15,7 +15,7 @@ def train_model():
     # egitim paketi train_loadera, test paketi test_loadera ataniyor.
 
     # Sinifdan model nesnesini olusturuyoruz. bu cagrildigi anda __init__ fonksiyonu calisir ve modelin katmanlari olusturulur. model nesnesi ile artik ileri ve geri yayilim islemleri yapilabilir.
-    model = CatVsJetCNN().to(device) # model nesnesini CUDA'ya (GPU) tasiyoruz. eger GPU yoksa CPU da calisir.
+    model = CatVsJetCNN().to(device) # to device ile model nesnesini CUDA'ya (GPU) tasiyoruz. eger GPU yoksa CPU da calisir.
 
     # Hata fonksiyonu (Loss Function) : modelin sonucu ile gercek sonuc karsilastirir (cross-entropy yontemi ile : 0 mı 1 mi problemlerinde kulanilir.)
     criterion = nn.CrossEntropyLoss()
@@ -56,7 +56,7 @@ def train_model():
             running_loss += loss.item()
 
             if i == 0:
-                print(f"---> İLK PAKET (32 RESİM) GPU'YA GİRDİ VE ISLENDİ.")
+                print(f"\n===> Epoch {epoch+1}/{epochs} başladı ({len(train_loader)} paket işlenecek)")
             # Her 10 pakette bir anlık durumu yazdır
             if (i + 1) % 10 == 0:
                 print(f"Epoch [{epoch+1}/{epochs}] | Paket [{i+1}/{len(train_loader)}] | Anlık Hata: {loss.item():.4f}")
