@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🐱✈️ CatVsJet
+# CatVsJet
 
 **A from-scratch PyTorch CNN for cat vs. jet image classification.**
 Three isolated experiments — baseline, data augmentation, and Optuna-based hyperparameter optimization — benchmarked side by side.
