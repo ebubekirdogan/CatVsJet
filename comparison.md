@@ -1,6 +1,6 @@
 # CatVsJet — 3 Model Comparison
 
-This report compares the performance of the CatVsJet CNN model resulting from 3 different development steps. Each model uses the same base architecture (a simple CNN with 2 convolutional layers) and the same, fixed train/validation/test split (80%/10%/10%, class-balanced). Each was trained for 5 epochs.
+This report compares the performance of the CatVsJet CNN model resulting from 3 different development steps. Each model uses the same base architecture (a simple CNN with 2 convolutional layers) and the same, fixed train/validation/test split (~78%/11%/11%, class-balanced). Each was trained for 5 epochs.
 
 - **Model 1 (Baseline):** The base model with train/validation/test splitting and performance metrics added.
 - **Model 2 (Augmented):** Built upon Model 1, with data augmentation (horizontal flip, brightness/contrast changes, ±15° rotation) added only to the training data.

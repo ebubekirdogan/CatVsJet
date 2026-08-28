@@ -67,11 +67,11 @@ All three models use this **exact same architecture** — the improvements happe
 | | |
 |---|---|
 | **Classes** | `airplane`, `cat` |
-| **Total images** | 12,000 (6,000 airplane + 6,000 cat, class-balanced) |
-| **Split** | 80% train / 10% validation / 10% test |
+| **Total images** | 10,705 (5,352 airplane + 5,353 cat, class-balanced) |
+| **Split** | ~78% train / ~11% validation / ~11% test |
 | **Preprocessing** | Resized to 64×64, converted to tensor, normalized |
 
-The train/validation/test split preserves an equal class ratio across all three sets (class-balanced) and uses a fixed seed, making it both reproducible and fair to evaluate on.
+The train/validation/test split preserves a near-equal class ratio across all three sets (class-balanced) and is fixed across all three models, making the comparison fair and consistent.
 
 ## 🔬 3 Models, 3 Approaches
 
@@ -137,6 +137,8 @@ pip install torch torchvision scikit-learn matplotlib optuna
 ```
 
 > PyTorch automatically uses a CUDA-enabled NVIDIA GPU if available, otherwise it runs on CPU.
+
+> The `dataset/` folder (train/val/test, ~10.7k images) is included directly in this repository — no separate download step is needed. Once you clone the repo, the dataset is already in place.
 
 ## 🚀 Usage
 
