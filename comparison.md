@@ -48,3 +48,22 @@ Model 2 and Model 3 were each built independently from Model 1 — meaning both 
 **Model 3 (HPO):** Trained with the hyperparameters Optuna found (`learning_rate ≈ 0.000376`, `batch_size = 16`), this model performed nearly identically to Model 2 (accuracy differs by just 0.08 points, F1 by 0.01 points). It achieved a similar-sized gain through a different mechanism — improving the learning process itself rather than the training data.
 
 **Overall takeaway:** Both data augmentation and hyperparameter optimization improved on the baseline by a similar margin, but through different paths — augmentation by reducing overfitting, HPO by improving the efficiency of learning. The fact that both land so close to each other suggests the current simple architecture (2 convolutional layers) may be approaching a performance ceiling for this dataset. A natural next step would be combining augmentation and HPO in a single model, or extending the architecture with additional layers.
+
+## Real-World Test
+
+Beyond the held-out test set, Model 2 (the best-performing model) was tested on 6 images sourced from the internet — none of which came from the original dataset — to see how it holds up on truly unseen, "in the wild" inputs.
+
+| Image | Prediction | Confidence | Correct? |
+|---|---|---|---|
+| Standard airplane photo | airplane | 100.00% | ✅ |
+| Upside-down cat photo | airplane | 94.84% | ❌ |
+| Standard cat photo | cat | 90.08% | ✅ |
+| Noisy/grainy cat photo | cat | 69.81% | ✅ |
+| F-16 fighter jet (different airplane type) | airplane | 80.49% | ✅ |
+| Close-up, black & white cat face | cat | 55.69% | ✅ |
+
+5 out of 6 predictions were correct. The one failure — an upside-down cat confidently (94.84%) misclassified as an airplane — is a meaningful finding: the augmentation pipeline only included rotations up to ±15°, so the model never learned to handle a full 180° flip. This is a clear, identifiable limitation rather than a random error.
+
+The F-16 result is also worth noting: the model correctly identified it as an airplane, but with noticeably lower confidence (80.49%) than the standard airplane photo (100%) — likely because the training data consists mostly of civilian aircraft, and a fighter jet's silhouette is less familiar to the model. Similarly, the black-and-white close-up cat photo was classified correctly but with confidence barely above chance (55.69%), suggesting the model relies on both color and whole-body shape cues that were partially missing from that image.
+
+Together, these results suggest the model generalizes reasonably well to realistic variation (image quality, unfamiliar subtypes, missing color information) but is notably fragile to orientation changes it never saw during training — a concrete, testable direction for future improvement.
