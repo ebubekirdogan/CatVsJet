@@ -18,7 +18,7 @@ def test_model():
     model = CatVsJetCNN().to(device) # model nesnesini CUDA'ya (GPU) tasiyoruz. eger GPU yoksa CPU da calisir.
     # torch.load ile kaydedilen modelin ağırlıklarını yükleriz. weights_only=True ile sadece ağırlıkları yükleriz, mimariyi değil.
     # ve okunan agirliklar olusturulan model nesnesine atanir.
-    model.load_state_dict(torch.load('cat_vs_jet_model1_baseline.pth', weights_only=True))
+    model.load_state_dict(torch.load('cat_vs_jet_model3_hpo.pth', weights_only=True))
 
     # Modeli test moduna alinir.
     model.eval()
